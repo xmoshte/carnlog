@@ -1,0 +1,6 @@
+board:
+  name: carnlog
+  full_name: carnlog
+  vendor: labfermion
+  socs:
+    - name: nrf52840

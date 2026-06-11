@@ -1,0 +1,10 @@
+identifier: carnlog/nrf52840
+name: An LTE, BLE and USB-FS OBD II datalogger for modern commercial vehicles
+vendor: labfermion
+type: mcu
+arch: arm
+ram: 256
+flash: 472
+toolchain:
+  - zephyr
+supported: []
