@@ -11,6 +11,7 @@
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 		zephyr,code-partition = &slot0_partition;
+        zephyr,console = &usblog;
 	};
 
 	leds {
@@ -55,26 +56,54 @@
 	status = "okay";
 };
 
+&gpio1 {
+	status = "okay";
+
+		sa0-high {
+			gpio-hog;
+			gpios = <4 GPIO_ACTIVE_HIGH>;   /* P1.04 */
+			output-high;
+			line-name = "imu-sa0";
+		};
+};
+
 &i2c0 {
 
 	status = "okay";
-	pinctrl-0 = <&i2c0_i2c0_default>;
-	pinctrl-names = "i2c0_default";
-	label = "lsm6d i2c";
+	pinctrl-0 = <&i2c0_lsm6dso>;
+    pinctrl-names = "default";
+	label = "lsm6dso i2c";
 	clock-frequency = <DT_FREQ_K(400)>;
 
-	lsmdso@0 {
-		compatible = "st,lsm6ds0";
-		reg = <0x0>;
-		interrupts = <0 0>;
-	};
+		lsm6dso: lsm6dso@6b {
+			compatible = "st,lsm6dso";
+			status = "okay";
+			reg = <0x6b>; /* 0x6b, SA0 = VDD */
+			irq-gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+			int-pin = <1>; /* 1 = IMU INT1 pin, 2 = INT2 */
+			interrupts = <0 0>;
+			friendly-name = "lsm6dso";
+		};
 };
 
 &pinctrl {
-	i2c0_i2c0_default: i2c0_i2c0_default {
+	i2c0_lsm6dso: i2c0_lsm6dso {
 		group1 {
 			psels = <NRF_PSEL(TWIM_SCL, 0, 9)>, <NRF_PSEL(TWIM_SDA, 0, 10)>;
 			nordic,drive-mode = <NRF_DRIVE_S0S1>;
 		};
 	};
 };
+
+&nvic {
+	status = "okay";
+};
+
+&usbd {
+	status = "okay";
+
+		usblog: cdc_acm_uart0 {
+			compatible = "zephyr,cdc-acm-uart";
+			label = "usblog";
+		};
+	};
