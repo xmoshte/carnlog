@@ -1,10 +1,5 @@
-#include <stdio.h>
-#include <zephyr/kernel.h>
-#include <zephyr/device.h>
-#include <zephyr/sys/printk.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/drivers/gpio.h>
-
 
 #define LED_NODE0 DT_ALIAS(led0)
 #define SLEEP_TIME_MS  1500

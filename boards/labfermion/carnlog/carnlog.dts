@@ -108,11 +108,10 @@
 	status = "okay";
 };
 
-&usbd {
+usbd: &usbd {
 	status = "okay";
-
 		usblog: cdc_acm_uart0 {
-			compatible = "zephyr,cdc-acm-uart";
-			label = "usblog";
+		   compatible = "zephyr,cdc-acm-uart";
+		   label = "usblog";
 		};
-	};
+};
