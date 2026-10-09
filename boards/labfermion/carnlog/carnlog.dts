@@ -80,7 +80,7 @@
 
 	status = "okay";
 	pinctrl-0 = <&i2c0_lsm6dso>;
-    pinctrl-names = "default";
+        pinctrl-names = "default";
 	label = "lsm6dso i2c";
 	clock-frequency = <DT_FREQ_K(400)>;
 

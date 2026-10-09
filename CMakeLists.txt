@@ -8,4 +8,5 @@ target_include_directories(app PRIVATE src)
 target_sources(app PRIVATE 
 src/main.c
 src/lsm6ds0/lsm6ds0.c
+src/led/led.c
 )

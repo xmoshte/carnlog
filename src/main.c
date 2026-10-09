@@ -7,6 +7,7 @@
 #include <zephyr/sys/printk.h>
 
 #include <lsm6ds0/lsm6ds0.h>
+#include <led/led.h>
 
 int main(void)
 {
@@ -14,14 +15,11 @@ int main(void)
 	const struct device *const dev2 = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 	uint32_t dtr =0;
 
-	// if (usb_enable(NULL)) {
-	// 	return 0;
-    // }
-
 	if (!device_is_ready(dev1)) {
 		printk("%s: device not ready.\n", dev1->name);
 		return 0;
 	}
+
 	#ifdef CONFIG_LSM6DSO_TRIGGER
 	printf("Testing LSM6DSO sensor in trigger mode.\n\n");
 	test_trigger_mode(dev1);
@@ -38,8 +36,6 @@ int main(void)
 		uart_line_ctrl_get(dev2, UART_LINE_CTRL_DTR, &dtr);
 		k_sleep(K_MSEC(100));
 	}
-
-	printk("Hello World!\n");
 
 	return 0;
 }
